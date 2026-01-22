@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
 
     const response = await getTeacherResponse({ nativeLanguage, targetLanguage, difficulty, messages });
 
-    return NextResponse.json({ message: response });
+    return NextResponse.json({ data: response });
   } catch (error) {
     console.error('API Error:', error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });

@@ -31,7 +31,7 @@ export const getTeacherResponse = async ({
   targetLanguage,
   difficulty,
   messages,
-}: TeacherParams): Promise<string | null> => {
+}: TeacherParams): Promise<OpenAI.Chat.Completions.ChatCompletion> => {
   let additionalContext = '';
 
   const maximLogger = await getMaximLogger();
@@ -111,7 +111,7 @@ export const getTeacherResponse = async ({
 
 
     trace.end();
-    return response.choices[0].message.content;
+    return response;
   } catch (error) {
     console.error('Error calling OpenAI:', error);
     throw new Error('Failed to get response from OpenAI');
