@@ -14,8 +14,10 @@ export async function POST(request: NextRequest) {
       content: message,
     }
     messages.push(refactoredMessage);
+    
+    const traceId = request.headers.get("maxim-trace-id") || undefined;
 
-    const response = await getTeacherResponse({ nativeLanguage, targetLanguage, difficulty, messages });
+    const response = await getTeacherResponse({ nativeLanguage, targetLanguage, difficulty, messages, traceId });
 
     return NextResponse.json({ data: response });
   } catch (error) {

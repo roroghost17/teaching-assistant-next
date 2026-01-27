@@ -22,6 +22,7 @@ interface TeacherParams {
   targetLanguage: string;
   difficulty: 'beginner' | 'intermediate' | 'advanced';
   messages: ChatMessage[];
+  traceId?: string;
 }
 
 let klingonDictionaryCache: string | null = null;
@@ -31,13 +32,14 @@ export const getTeacherResponse = async ({
   targetLanguage,
   difficulty,
   messages,
+  traceId,
 }: TeacherParams): Promise<OpenAI.Chat.Completions.ChatCompletion> => {
   let additionalContext = '';
 
   const maximLogger = await getMaximLogger();
 
   const trace = maximLogger.trace({
-    id: uuidv4(),
+    id: traceId || uuidv4(),
   })
 
   if (targetLanguage.toLowerCase() === 'klingon') {
